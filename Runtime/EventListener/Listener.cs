@@ -8,12 +8,13 @@ namespace K.Framework.EventListener
     public abstract class EventResolver<T>
     {
         protected abstract Event<T> _event { get; }
-        public UnityEvent<T> Resolver;
-
+        
         public Event<T> Event
         {
             get { return _event; }
         }
+
+        public UnityEvent<T> Resolver;
     }
 
     public abstract class EventListener<T> : MonoBehaviour
@@ -31,7 +32,6 @@ namespace K.Framework.EventListener
             foreach (EventResolver<T> eventResolver in _eventResolverList)
                 eventResolver.Event.UnregisterListener(this);
         }
-
 
         public void OnEventRaised(Event<T> e)
         {

@@ -14,7 +14,7 @@ namespace K.Framework.EventListener
     }
 
     [AddComponentMenu("K.Listener/GameObject Listener")]
-    class GameObjectListener : EventListener<GameObject>
+    public class GameObjectListener : EventListener<GameObject>
     {
         [SerializeField] List<GameObjectEventResolver> _gameObjectEventResolverList;
         public override IEnumerable<EventResolver<GameObject>> _eventResolverList => (_gameObjectEventResolverList.Cast<EventResolver<GameObject>>());
