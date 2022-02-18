@@ -1,0 +1,14 @@
+{
+    "name": "app.k.framework",
+    "version": "1.0.0",
+    "displayName": "K Framework Tools",
+    "description": "Personal framework to speed up coding in Unity",
+    "author": {
+        "name": "Kevin UNFRICHT",
+        "email": "unfricht.kevin@hotmail.fr",
+        "url": "https://www.linkedin.com/in/kevinunfricht/"
+    },
+    "unity": "2018.1",
+    "type": "tool",
+    "license": "UNLICENSED"
+}
