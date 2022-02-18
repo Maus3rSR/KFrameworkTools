@@ -5,25 +5,25 @@ using UnityEngine;
 namespace K.Framework.EventListener
 {
     [Serializable]
-    public abstract class KEvent<T> : ScriptableObject
+    public abstract class Event<T> : ScriptableObject
     {
         public T Value { get; private set; }
 
-        List<KEventListener<T>> _listenerList = new List<KEventListener<T>>();
+        List<EventListener<T>> _listenerList = new List<EventListener<T>>();
 
         public void Raise(T value)
         {
             Value = value;
-            foreach (KEventListener<T> listener in _listenerList)
+            foreach (EventListener<T> listener in _listenerList)
                 listener.OnEventRaised(this);
         }
 
-        public void RegisterListener(KEventListener<T> listener)
+        public void RegisterListener(EventListener<T> listener)
         {
             _listenerList.Add(listener);
         }
 
-        public void UnregisterListener(KEventListener<T> listener)
+        public void UnregisterListener(EventListener<T> listener)
         {
             _listenerList.Remove(listener);
         }

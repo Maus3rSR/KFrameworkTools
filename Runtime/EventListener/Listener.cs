@@ -5,38 +5,40 @@ using UnityEngine.Events;
 
 namespace K.Framework.EventListener
 {
-    [Serializable]
-    public class ResponseEvent<T> : UnityEvent<T> {}
-
-    [Serializable]
-    public struct EventResponseList<T>
+    public abstract class EventResolver<T>
     {
-        public KEvent<T> Event;
-        public ResponseEvent<T> Response;
+        protected abstract Event<T> _event { get; }
+        public UnityEvent<T> Resolver;
+
+        public Event<T> Event
+        {
+            get { return _event; }
+        }
     }
 
-    public abstract class KEventListener<T> : MonoBehaviour
+    public abstract class EventListener<T> : MonoBehaviour
     {
-        [SerializeField] List<EventResponseList<T>> _eventResponseList = null;
+        public abstract IEnumerable<EventResolver<T>> _eventResolverList { get; }
 
         void OnEnable()
         {
-            foreach (EventResponseList<T> pair in _eventResponseList)
-            pair.Event.RegisterListener(this); 
+            foreach (EventResolver<T> eventResolver in _eventResolverList)
+                eventResolver.Event.RegisterListener(this);
         }
 
         void OnDisable()
         {
-            foreach (EventResponseList<T> pair in _eventResponseList)
-                pair.Event.UnregisterListener(this);
+            foreach (EventResolver<T> eventResolver in _eventResolverList)
+                eventResolver.Event.UnregisterListener(this);
         }
 
-        public void OnEventRaised(KEvent<T> e)
+
+        public void OnEventRaised(Event<T> e)
         {
-            foreach (EventResponseList<T> pair in _eventResponseList)
-                if (pair.Event == e)
+            foreach (EventResolver<T> eventResolver in _eventResolverList)
+                if (eventResolver.Event == e)
                 {
-                    pair.Response.Invoke(e.Value);
+                    eventResolver.Resolver.Invoke(e.Value);
                     break;
                 }
         }

@@ -5,5 +5,5 @@ using UnityEngine;
 namespace K.Framework.EventListener
 {
     [CreateAssetMenu(fileName="Event", menuName="K.Framework/Event/GameObject")]
-    public class GameObjectEvent : KEvent<GameObject> {}
+    public class GameObjectEvent : Event<GameObject> {}
 }
